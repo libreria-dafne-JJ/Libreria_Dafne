@@ -206,17 +206,17 @@ text-shadow: 0 0 10px rgba(30,144,255,0.7);
 
 <header>  
   <div style="display:flex; gap:10px; align-items:center;">  
-    <img src="logo.png" class="logo">  
-    <h2>DAFNE</h2>  
+    <img src="./logo.png" class="logo">  
+    <h2>DAFNE</h2>  
   </div>  
 </header>
 
-<button class="ask-btn" onclick="preguntar()"> Preguntar por un libro</button>  
+<button class="ask-btn" onclick="preguntar()">Preguntar por un libro</button>  
 <div class="divider"></div>
 
 <div class="container" id="productos"></div>  
 
-<div class="cart-btn" id="cartBtn" onclick="toggleCart()"> <span id="count">0</span></div>  
+<div class="cart-btn" id="cartBtn" onclick="toggleCart()">🛒 <span id="count">0</span></div>  
 
 <div id="cart">  
   <h2>Tu carrito</h2>  
@@ -228,7 +228,7 @@ text-shadow: 0 0 10px rgba(30,144,255,0.7);
 
 <div id="footer-msg">Hay muchos más</div>
 
-<audio id="sound" src="comprarr.mp3"></audio>  
+<audio id="sound" src="./comprarr.mp3"></audio>  
 
 <script>  
 let libros = [];
@@ -237,13 +237,13 @@ function agregarLibro(nombre, precio, img) {
   libros.push({ nombre, precio, img });
 }
 
-// Libros iniciales
-agregarLibro("Hábitos atómicos", 39000, "img1.jpg");
-agregarLibro("La psicología del dinero", 39000, "img2.jpg");
-agregarLibro("Narnia", 39000, "img3.jpg");
-agregarLibro("Este dolor no es mio", 39000, "img4.jpg");
-agregarLibro("Fabricante de lágrimas", 39000, "img5.jpg");
-agregarLibro("Los juegos del hambre", 39000, "img6.jpg");
+// 👇 AQUÍ SOLO AJUSTÉ LAS RUTAS (./)
+agregarLibro("Hábitos atómicos", 39000, "./img1.jpg");
+agregarLibro("La psicología del dinero", 39000, "./img2.jpg");
+agregarLibro("Narnia", 39000, "./img3.jpg");
+agregarLibro("Este dolor no es mio", 39000, "./img4.jpg");
+agregarLibro("Fabricante de lágrimas", 39000, "./img5.jpg");
+agregarLibro("Los juegos del hambre", 39000, "./img6.jpg");
 
 let carrito = [];  
 
@@ -307,7 +307,7 @@ function renderCart() {
   let total = 0;  
   items.innerHTML = "";  
   carrito.forEach((l, i) => {  
-    items.innerHTML += `<div class="item"><img src='${l.img}'>${l.nombre} - $${l.precio} <button onclick="remove(${i})"></button></div>`;  
+    items.innerHTML += `<div class="item"><img src='${l.img}'>${l.nombre} - $${l.precio} <button onclick="remove(${i})">❌</button></div>`;  
     total += l.precio;  
   });  
   document.getElementById("total").innerText = total;  
@@ -326,7 +326,7 @@ function toggleCart() {
 function comprar() {  
   if(carrito.length == 0) { alert("Carrito vacío"); return; }  
 
-  let texto = " Pedido:\n\n";  
+  let texto = "Pedido:\n\n";  
   let total = 0;  
 
   carrito.forEach(l => {  
@@ -334,7 +334,7 @@ function comprar() {
     total += l.precio;  
   });  
 
-  texto += "\n TOTAL: $" + total;  
+  texto += "\nTOTAL: $" + total;  
 
   let url = "https://wa.me/573106505193?text=" + encodeURIComponent(texto);  
   window.open(url);  
