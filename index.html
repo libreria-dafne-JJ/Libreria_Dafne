@@ -3,7 +3,7 @@
 <head>  
 <meta charset="UTF-8">  
 <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-<title>Dafne - LibrerÌa</title>
+<title>Dafne - Librer√≠a</title>
 
 <style>  
 :root {  
@@ -226,7 +226,7 @@ text-shadow: 0 0 10px rgba(30,144,255,0.7);
   <button class="close-btn" onclick="toggleCart()">Cerrar</button>  
 </div>
 
-<div id="footer-msg">Hay muchos m·s</div>
+<div id="footer-msg">Hay muchos m√°s</div>
 
 <audio id="sound" src="comprarr.mp3"></audio>  
 
@@ -238,11 +238,11 @@ function agregarLibro(nombre, precio, img) {
 }
 
 // Libros iniciales
-agregarLibro("H·bitos atÛmicos", 39000, "img1.jpg");
-agregarLibro("La psicologÌa del dinero", 39000, "img2.jpg");
+agregarLibro("H√°bitos at√≥micos", 39000, "img1.jpg");
+agregarLibro("La psicolog√≠a del dinero", 39000, "img2.jpg");
 agregarLibro("Narnia", 39000, "img3.jpg");
 agregarLibro("Este dolor no es mio", 39000, "img4.jpg");
-agregarLibro("Fabricante de l·grimas", 39000, "img5.jpg");
+agregarLibro("Fabricante de l√°grimas", 39000, "img5.jpg");
 agregarLibro("Los juegos del hambre", 39000, "img6.jpg");
 
 
@@ -325,13 +325,13 @@ function toggleCart() {
 }  
 
 function comprar() {  
-  if(carrito.length == 0) { alert("Carrito vacÌo"); return; }  
+  if(carrito.length == 0) { alert("Carrito vac√≠o"); return; }  
 
   let texto = " Pedido:\n\n";  
   let total = 0;  
 
   carrito.forEach(l => {  
-    texto += "ï " + l.nombre + " - $" + l.precio + "\n";  
+    texto += "‚Ä¢ " + l.nombre + " - $" + l.precio + "\n";  
     total += l.precio;  
   });  
 
