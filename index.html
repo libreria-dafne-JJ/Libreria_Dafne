@@ -9,7 +9,7 @@
 :root {  
   --primary: #1e90ff;  
   --secondary: #ff6f61;  
-  --accent: #fdd835;  
+  --accent: #40e0d0;
   --background: #2A2F41;  
   --card-bg: #000000;  
 }  
@@ -21,21 +21,49 @@ background: var(--background);
 color: #111;
 }
 
+
+.top-actions {
+padding: 10px;
+text-align: center;
+}
+
+.top-actions button {
+width: 90%;
+max-width: 400px;
+font-size: 1rem;
+}
+
+.generos {
+display: flex;
+overflow-x: auto;
+gap: 10px;
+padding: 10px;
+}
+
+.generos button {
+flex: 0 0 auto;
+background: var(--primary);
+border-radius: 20px;
+padding: 8px 15px;
+border: none;
+color: white;
+}
+
+.generos button.active {
+background: var(--accent);
+color: black;
+}
+
 header {
 display: flex;
-justify-content: space-between;
 padding: 15px;
 align-items: center;
 }
 
 header h2 {
 font-size: 2rem;
-font-weight: 800;
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 color: #1e90ff;
-text-shadow: 0 0 8px rgba(30,144,255,0.7);
 margin: 0;
-text-transform: uppercase;
 }
 
 .logo {
@@ -43,7 +71,6 @@ width: 50px;
 height: 50px;
 border-radius: 50%;
 border: 2px solid var(--primary);
-box-shadow: 0 0 10px rgba(30,144,255,0.6);
 }
 
 .container {
@@ -54,13 +81,10 @@ padding: 10px;
 }
 
 .card {
-background: var(--card-bg);
+background: black;
 border-radius: 12px;
 padding: 10px;
 text-align: center;
-box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-position: relative;
-overflow: hidden;
 border: 2px solid var(--primary);
 color: white;
 }
@@ -73,34 +97,13 @@ border-radius: 10px;
 border: 2px solid var(--primary);
 }
 
-.card h3 {
-font-size: 1.5rem;
-font-weight: 700;
-color: #1e90ff;
-margin: 10px 0 5px 0;
-}
-
 button {
 background: var(--primary);
-border: none;
 color: white;
 padding: 8px;
 border-radius: 8px;
-margin-top: 5px;
 cursor: pointer;
-}
-
-.ask-btn {
-width: 90%;
-margin: 15px auto;
-display: block;
-}
-
-.divider {
-width: 90%;
-height: 2px;
-background: var(--primary);
-margin: 10px auto;
+border: none;
 }
 
 .cart-btn {
@@ -108,9 +111,9 @@ position: fixed;
 bottom: 60px;
 right: 20px;
 background: var(--primary);
-color: white;
 padding: 15px;
 border-radius: 50%;
+color: white;
 }
 
 #cart {
@@ -119,165 +122,232 @@ top: 0;
 right: -100%;
 width: 300px;
 height: 100%;
-background: var(--card-bg);
+background: black;
 padding: 15px;
 transition: 0.3s;
 color: white;
+overflow-y: auto;
 }
 
 #cart.active { right: 0; }
 
-/* 🔥 NUEVA BARRA */
-#paginacion {
+.item {
 display: flex;
-justify-content: center;
+align-items: center;
 gap: 10px;
-margin: 20px;
+margin-bottom: 10px;
 }
 
-.page-btn {
-padding: 8px 12px;
-background: #444;
-border-radius: 6px;
-cursor: pointer;
-color: white;
+.item img {
+width: 40px;
+height: 60px;
+object-fit: cover;
+border-radius: 5px;
 }
 
-.page-btn.active {
-background: var(--primary);
+.cart-actions {
+display: flex;
+gap: 10px;
 }
+
+.close-btn {
+background: red;
+flex: 1;
+}
+
+.buy-btn {
+flex: 1;
+}
+
 </style>
 </head>
 
 <body>
 
 <header>  
-  <div style="display:flex; gap:10px; align-items:center;">  
-    <img src="./logo.png" class="logo">  
-    <h2>DAFNE📖</h2>  
-  </div>  
+<div style="display:flex; gap:10px; align-items:center;">  
+<img src="./logo.png" class="logo">  
+<h2>DAFNE📖</h2>  
+</div>  
 </header>
 
-<button class="ask-btn" onclick="preguntar()">Preguntar por un libro📚</button>  
-<div class="divider"></div>
+
+<div class="top-actions">
+  <button onclick="preguntar()">Preguntar por un libro📚</button>
+</div>
+
+<div class="generos" id="generos"></div>
 
 <div class="container" id="productos"></div>  
 
-<!-- 🔥 PAGINACIÓN -->
-<div id="paginacion"></div>
-
-<div class="cart-btn" onclick="toggleCart()">🛒 <span id="count">0</span></div>  
+<div class="cart-btn" id="cartBtn" onclick="toggleCart()">🛒 <span id="count">0</span></div>  
 
 <div id="cart">  
-  <h2>Tu carrito</h2>  
-  <div id="items"></div>  
-  <h3>Total: $<span id="total">0</span></h3>  
-  <button onclick="comprar()">Comprar</button>  
-  <button onclick="toggleCart()">Cerrar</button>  
+<h2>Carrito</h2>  
+<div id="items"></div>  
+<h3>Total: $<span id="total">0</span></h3>  
+
+<div class="cart-actions">
+  <button class="buy-btn" onclick="comprar()">Comprar</button>  
+  <button class="close-btn" onclick="toggleCart()">Cerrar</button>  
 </div>
 
-<audio id="sound" src="./comprarr.mp3"></audio>  
+</div>
+
+<audio id="sound" src="./comprarr.mp3"></audio>
 
 <script>  
+
 let libros = [];
 
-function agregarLibro(nombre, precio, img) {
-  libros.push({ nombre, precio, img });
+function agregarLibro(nombre, precio, img, genero) {
+  libros.push({ nombre, precio, img, genero });
 }
 
-// libros
-agregarLibro("Hábitos atómicos", 39000, "./img1.jpg");
-agregarLibro("La psicología del dinero", 39000, "./img2.jpg");
-agregarLibro("Narnia", 39000, "./img3.jpg");
-agregarLibro("Libro 4", 39000, "./img4.jpg");
-agregarLibro("Libro 5", 39000, "./img5.jpg");
-agregarLibro("Libro 6", 39000, "./img6.jpg");
-agregarLibro("Libro 7", 39000, "./img7.jpg");
-agregarLibro("Libro 8", 39000, "./img8.jpg");
-agregarLibro("Libro 9", 39000, "./img9.jpg");
-agregarLibro("Libro 10", 39000, "./img10.jpg");
-agregarLibro("Libro 11", 39000, "./img11.jpg");
+// LIBROS
+agregarLibro("Hábitos atómicos", 39000, "./img1.jpg", "Desarrollo");
+agregarLibro("La psicología del dinero", 39000, "./img2.jpg", "Finanzas");
+agregarLibro("Ricky and Morty", 39000, "./img3.jpg", "Comedia");
+agregarLibro("Este dolor no es mio", 39000, "./img4.jpg", "Psicología");
+agregarLibro("Fabricante de lágrimas", 39000, "./img5.jpg", "Drama");
+agregarLibro("Los juegos del hambre", 39000, "./img6.jpg", "Acción");
+agregarLibro("A que putas esperas", 39000, "./img7.jpg", "Desarrollo");
+agregarLibro("Despues del amor", 39000, "./img8.jpg", "Drama");
+agregarLibro("El ego es el enemigo", 39000, "./img9.jpg", "Desarrollo");
+agregarLibro("Imaginario", 39000, "./img10.jpg", "Fantasía");
+agregarLibro("Narnia", 39000, "./img11.jpg", "Fantasía");
 
 let carrito = [];
-let paginaActual = 2;
-let porPagina = 10;
+let generoActivo = "Todos";
+
+function renderGeneros() {
+  let cont = document.getElementById("generos");
+  cont.innerHTML = "";
+
+  let generos = ["Todos", ...new Set(libros.map(l => l.genero))];
+
+  generos.forEach(g => {
+    cont.innerHTML += `<button class="${g===generoActivo?'active':''}" onclick="cambiarGenero('${g}')">${g}</button>`;
+  });
+}
+
+function cambiarGenero(g) {
+  generoActivo = g;
+  renderGeneros();
+  render();
+}
 
 function render() {
   let cont = document.getElementById("productos");
   cont.innerHTML = "";
 
-  let inicio = paginaActual * porPagina;
-  let fin = inicio + porPagina;
+  let filtrados = generoActivo === "Todos"
+    ? libros
+    : libros.filter(l => l.genero === generoActivo);
 
-  libros.slice(inicio, fin).forEach((l, i) => {
+  filtrados.forEach((l, i) => {
     cont.innerHTML += `
-    <div class="card">
+    <div class="card" id="card${i}">
       <img src="${l.img}">
       <h3>${l.nombre}</h3>
       <p>$${l.precio}</p>
-      <button onclick="add(${inicio + i})">Agregar</button>
+      <button onclick="add(${i})">Agregar</button>
     </div>`;
   });
-
-  renderPaginacion();
 }
 
-function renderPaginacion() {
-  let totalPaginas = Math.ceil(libros.length / porPagina);
-  let pag = document.getElementById("paginacion");
-  pag.innerHTML = "";
+function add(i) {
+  let filtrados = generoActivo === "Todos"
+    ? libros
+    : libros.filter(l => l.genero === generoActivo);
 
-  for(let i=0;i<totalPaginas;i++){
-    pag.innerHTML += `
-    <div class="page-btn ${i===paginaActual?'active':''}" onclick="cambiarPagina(${i})">
-      ${i+1}
-    </div>`;
-  }
-}
+  let card = document.getElementById("card" + i);
+  let img = card.querySelector("img");
 
-function cambiarPagina(p){
-  paginaActual = p;
-  render();
-}
+  let clone = img.cloneNode();
+  let rect = img.getBoundingClientRect();
 
-function add(i){
-  carrito.push(libros[i]);
-  document.getElementById("sound").play();
+  clone.style.position = "fixed";
+  clone.style.left = rect.left + "px";
+  clone.style.top = rect.top + "px";
+  clone.style.width = rect.width + "px";
+  clone.style.height = rect.height + "px";
+  clone.style.zIndex = 9999;
+  clone.style.transition = "all 0.7s ease";
+
+  document.body.appendChild(clone);
+
+  let cart = document.getElementById("cartBtn").getBoundingClientRect();
+
+  setTimeout(() => {
+    clone.style.left = cart.left + "px";
+    clone.style.top = cart.top + "px";
+    clone.style.width = "20px";
+    clone.style.height = "20px";
+    clone.style.opacity = 0;
+  }, 10);
+
+  setTimeout(() => clone.remove(), 700);
+
+  let audio = document.getElementById("sound");
+  audio.currentTime = 0;
+  audio.play();
+
+  carrito.push(filtrados[i]);
   renderCart();
 }
 
-function renderCart(){
+function renderCart() {
   let items = document.getElementById("items");
   let total = 0;
-  items.innerHTML="";
-  carrito.forEach((l,i)=>{
-    items.innerHTML+=`<div>${l.nombre} - $${l.precio}</div>`;
-    total+=l.precio;
+  items.innerHTML = "";
+
+  carrito.forEach((l, i) => {
+    items.innerHTML += `
+      <div class="item">
+        <img src="${l.img}">
+        <div style="flex:1;">
+          ${l.nombre}<br>$${l.precio}
+        </div>
+        <button onclick="remove(${i})">❌</button>
+      </div>`;
+    total += l.precio;
   });
-  document.getElementById("total").innerText=total;
-  document.getElementById("count").innerText=carrito.length;
+
+  document.getElementById("total").innerText = total;
+  document.getElementById("count").innerText = carrito.length;
 }
 
-function toggleCart(){
+function remove(i) {
+  carrito.splice(i, 1);
+  renderCart();
+}
+
+function toggleCart() {
   document.getElementById("cart").classList.toggle("active");
 }
 
-function comprar(){
-  let texto="Pedido:\n";
-  let total=0;
-  carrito.forEach(l=>{
-    texto+=l.nombre+" $"+l.precio+"\n";
-    total+=l.precio;
+function comprar() {
+  let texto = "Pedido:\n\n";
+  let total = 0;
+
+  carrito.forEach(l => {
+    texto += l.nombre + " - $" + l.precio + "\n";
+    total += l.precio;
   });
-  texto+="\nTOTAL: $"+total;
-  window.open("https://wa.me/573106505193?text="+encodeURIComponent(texto));
+
+  texto += "\nTOTAL: $" + total;
+
+  window.open("https://wa.me/573106505193?text=" + encodeURIComponent(texto));
 }
 
-function preguntar(){
-  window.open("https://wa.me/573106505193");
+function preguntar() {
+  window.open("https://wa.me/573106505193?text=Hola, busco un libro");
 }
 
+renderGeneros();
 render();
+
 </script>
 
 </body>
