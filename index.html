@@ -19,6 +19,16 @@ margin: 0;
 font-family: sans-serif;
 background: var(--background);
 color: #111;
+
+/*  BORDE SOLO LATERAL AZUL */
+border-left: 4px solid #1e90ff;
+border-right: 4px solid #1e90ff;
+box-shadow: 
+  inset 5px 0 15px rgba(30,144,255,0.5),
+  inset -5px 0 15px rgba(30,144,255,0.5);
+
+min-height: 100vh;
+box-sizing: border-box;
 }
 
 
@@ -167,20 +177,19 @@ flex: 1;
 <header>  
 <div style="display:flex; gap:10px; align-items:center;">  
 <img src="./logo.png" class="logo">  
-<h2>DAFNE📖</h2>  
+<h2>DAFNE</h2>  
 </div>  
 </header>
 
-
 <div class="top-actions">
-  <button onclick="preguntar()">Preguntar por un libro📚</button>
+  <button onclick="preguntar()">Preguntar por un libro</button>
 </div>
 
 <div class="generos" id="generos"></div>
 
 <div class="container" id="productos"></div>  
 
-<div class="cart-btn" id="cartBtn" onclick="toggleCart()">🛒 <span id="count">0</span></div>  
+<div class="cart-btn" id="cartBtn" onclick="toggleCart()"> <span id="count">0</span></div>  
 
 <div id="cart">  
 <h2>Carrito</h2>  
@@ -309,7 +318,7 @@ function renderCart() {
         <div style="flex:1;">
           ${l.nombre}<br>$${l.precio}
         </div>
-        <button onclick="remove(${i})">❌</button>
+        <button onclick="remove(${i})"></button>
       </div>`;
     total += l.precio;
   });
